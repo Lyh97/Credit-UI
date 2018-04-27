@@ -10,7 +10,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import router from './router'
 import echarts from 'echarts'
 
-Vue.prototype.$echarts = echarts 
+Vue.prototype.$echarts = echarts
 Vue.use(VueAxios, axios)
 Vue.use(ElementUI)
 

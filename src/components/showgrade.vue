@@ -78,8 +78,7 @@ export default {
       });
     },
     init() {
-      var keyid = document.cookie.split(';')
-      var userkeyid = keyid[1]
+      var userkeyid = this.$store.state.user.keyid
       this.axios.post(this.api+'/selectStuGrade',{"keyid":userkeyid}).then((response)=>{
         if(response.data.code === 200) {
           this.datas = response.data.data

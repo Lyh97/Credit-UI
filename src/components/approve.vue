@@ -7,7 +7,7 @@
     </el-row>
     <el-row type="flex" justify="center">
       <el-col :span='22'>
-      	<el-table style="width: 100%" header-cell-style='text-align:center' row-style='text-align:center' :data="tableData">
+        <el-table style="width: 100%" header-cell-style='text-align:center' row-style='text-align:center' :data="tableData">
 
           <el-table-column type="expand">
             <template slot-scope="props">
@@ -66,16 +66,10 @@
                   </el-form>
               </el-popover>
               </el-button>
-              
             </template>
           </el-table-column>
         </el-table>
       </el-col>
-    </el-row>
-    <el-row>
-    	<el-col>
-    		
-    	</el-col>
     </el-row>
   </div>
 </template>
@@ -87,61 +81,59 @@ export default {
     return {
       tableData: [],
       ruleForm: {
-          info: ''
+        info: ''
       },
-      api:'http://localhost:8888/stu'
-      }
-    },
-    methods: {
-      consent(index, row) {
-        row.info05 = ""
-        this.examine(row,1)
-      },
-      tureDown(index, row) {
-        row.info05 = this.ruleForm.info
-        this.examine(row,3)
-      },
-      examine(row, status) {
-        row.status = status
-        this.visible = false
-        this.axios.post(this.api+'/updateStatus',row).then((response)=>{
-          if(response.data.code === 201)
-          {
-            this.$message.error('系统错误，请联系管理员')
-          } else
-          if(response.data.code === 200) {
-            this.$message.success('审批完成')
-            this.init()
-          }
-        })
-      },
-      indexMethod(index) {
-        return index + 1;
-      },
-      init() {
-        this.axios.get(this.api+'/selectAllStatus0').then((response)=>{
-          if(response.data.code === 201)
-          {
-            this.$message.error('系统错误，请联系管理员')
-          } else
-          if(response.data.code === 200) {
-            this.tableData = response.data.data
-          }
-        })
-      }
-    },
-    created: function() {
-      this.init()
+      api: 'http://localhost:8888/stu'
     }
+  },
+  methods: {
+    consent (index, row) {
+      row.info05 = ''
+      this.examine(row, 1)
+    },
+    tureDown (index, row) {
+      row.info05 = this.ruleForm.info
+      this.examine(row, 3)
+    },
+    examine (row, status) {
+      row.status = status
+      this.visible = false
+      this.axios.post(this.api + '/updateStatus', row).then((response) => {
+        if (response.data.code === 201) {
+          this.$message.error('系统错误，请联系管理员')
+        } else
+        if (response.data.code === 200) {
+          this.$message.success('审批完成')
+          this.init()
+        }
+      })
+    },
+    indexMethod (index) {
+      return index + 1
+    },
+    init () {
+      this.axios.get(this.api + '/selectAllStatus0').then((response) => {
+        if (response.data.code === 201) {
+          this.$message.error('系统错误，请联系管理员')
+        } else
+        if (response.data.code === 200) {
+          this.tableData = response.data.data
+        }
+      })
+    }
+  },
+  created: function () {
+    this.init()
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .record_head {
-  	background-color: #F0F0F0
+    background-color: #F0F0F0
   }
   .record_row {
-  	margin-left: 20px;
+    margin-left: 20px;
   }
 </style>

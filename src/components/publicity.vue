@@ -69,8 +69,7 @@
       join(index, rows) {
         this.form.activename = rows[index].name
         this.form.activekeyid = rows[index].keyid
-        var keyid = document.cookie.split(';')
-        var keyid = keyid[1]
+        var keyid = this.$store.state.user.keyid
         this.form.stukeyid = keyid
         this.form.activegrade = rows[index].actgrade
         this.form.info01 = rows[index].member
@@ -98,8 +97,8 @@
         })
       },
       init() {
-      	var keyid = document.cookie.split(';')
-    	this.axios.post(this.api+'/selectActive',{"keyid":keyid[1],"page":this.page}).then((response)=>{
+      	var keyid = this.$store.state.user.keyid
+    	this.axios.post(this.api+'/selectActive',{"keyid":keyid,"page":this.page}).then((response)=>{
     	  if (response.data.code === 200){
             this.tableData = response.data.data
             this.title = response.data.pages

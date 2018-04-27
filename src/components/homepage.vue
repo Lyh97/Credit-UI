@@ -40,13 +40,20 @@ export default {
       console.log(key, keyPath)
     },
     getmenu: function ge () {
-      var keyid = document.cookie.split(';')
-      var keyid = keyid[1]
+
+    console.log(":::::::::" + this.$store.state.user.keyid)
+
+      var keyid = this.$store.state.user.keyid
+
       var http = new XMLHttpRequest()
       http.open('post', this.$store.state.API + 'getmenu' + '?keyid=' + keyid, true)
       var that = this
       http.onreadystatechange = function () {
         if (http.readyState === 4 && http.status === 200) {
+          if(JSON.parse(http.responseText) == null || JSON.parse(http.responseText) == '')
+          {
+            that.$router.push({name: 'login'})
+          }
           that.menu = JSON.parse(http.responseText)
         }
       }

@@ -1,6 +1,6 @@
 <template>
   <div style="width:100%">
-  	<el-row class="record_head" type="flex">
+    <el-row class="record_head" type="flex">
       <el-col :span="4" class= "record_row">
         <h1>申请记录</h1>
       </el-col>
@@ -27,7 +27,7 @@
     </el-row>
     <el-row>
       <el-col class="record_table" :span="23">
-      	<el-table :data="tableData" border style="width: 100%">
+        <el-table :data="tableData" border style="width: 100%">
           <el-table-column fixed type="expand" width="40">
             <template slot-scope="props">
                <el-form label-position="left" inline class="demo-table-expand">
@@ -112,7 +112,6 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
   data () {
     return {
       api: 'http://localhost:8888/stu',
@@ -121,7 +120,7 @@ export default {
       detailVisible: false,
       formtemp: {
         LOG_TIMESTAMP: '',
-      	actname: ''
+        actname: ''
       },
       form: {
         mindate: '',
@@ -132,109 +131,105 @@ export default {
       },
       title: 0,
       tableData: [],
-      detail:{},
+      detail: {},
       tableDatas: []
     }
   },
   methods: {
-    indexMethod(index) {
-      return index + 1;
+    indexMethod (index) {
+      return index + 1
     },
-  	handleClick(row) {
-      this.axios.post(this.api+'/selectJoinPerson',{"keyid":row.keyid}).then((response)=>{
-        if(response.data.code === 200) {
+    handleClick (row) {
+      this.axios.post(this.api + '/selectJoinPerson', {'keyid': row.keyid}).then((response) => {
+        if (response.data.code === 200) {
           this.tableDatas = response.data.data
           this.detailVisible = true
         }
       })
     },
-    record: function() {
-      var keyid = document.cookie.split(';')
-      var userkeyid = keyid[1]
-      this.form['userKeyid'] = userkeyid
-      if(this.formtemp.LOG_TIMESTAMP === ''){
+    record: function () {
+      this.form['userKeyid'] = this.$store.state.user.keyid
+      if (this.formtemp.LOG_TIMESTAMP === '') {
         this.form.mindate = ''
         this.form.maxdate = ''
-      }else{
+      } else {
         this.form.mindate = this.formtemp.LOG_TIMESTAMP[0] || ''
         this.form.maxdate = this.formtemp.LOG_TIMESTAMP[1] || ''
       }
-      this.form.actname = this.formtemp.actname;
-      this.axios.post(this.api + '/record', this.form).then((response) =>  {
+      this.form.actname = this.formtemp.actname
+      this.axios.post(this.api + '/record', this.form).then((response) => {
         if (response.data.code === 400) {
           this.$message.error('查询失败')
-        }
-        else if (response.data.code === '200') {
+        } else
+        if (response.data.code === '200') {
           this.tableData = response.data.date
           this.title = response.data.title
           this.dialogVisible = false
         }
       })
     },
-    handleDelete(index, row) {
-      this.axios.post(this.api+'/deleteJoinByStuKeyid',{'stukeyid':row.stukeyid,'activekeyid':row.activekeyid}).then((response) => {
-        if(response.data.code === 201) {
+    handleDelete (index, row) {
+      this.axios.post(this.api + '/deleteJoinByStuKeyid', {'stukeyid': row.stukeyid, 'activekeyid': row.activekeyid}).then((response) => {
+        if (response.data.code === 201) {
           this.$message.error('删除失败')
-        }
-        else if (response.data.code === 200) {
+        } else
+        if (response.data.code === 200) {
           this.$message.success('删除成功')
           this.detailVisible = false
         }
       })
     },
-    deleteByKeyid(row) {
-      this.axios.post(this.api+'/deleteApplyByKeyid',{'keyid':row.keyid}).then((response) => {
-        if(response.data.code === 201) {
+    deleteByKeyid (row) {
+      this.axios.post(this.api + '/deleteApplyByKeyid', {'keyid': row.keyid}).then((response) => {
+        if (response.data.code === 201) {
           this.$message.error('删除失败')
-        }
-        else if (response.data.code === 200) {
+        } else
+        if (response.data.code === 200) {
           this.$message.success('删除成功')
           this.record()
         }
       })
     },
-    finishByKeyid(row) {
-      this.axios.post(this.api+'/finishApplyByKeyid',{'keyid':row.keyid}).then((response) => {
-        if(response.data.code === 201) {
+    finishByKeyid (row) {
+      this.axios.post(this.api + '/finishApplyByKeyid', {'keyid': row.keyid}).then((response) => {
+        if (response.data.code === 201) {
           this.$message.error('结束失败')
-        }
-        else if (response.data.code === 200) {
+        } else
+        if (response.data.code === 200) {
           this.$message.success('成功结束活动')
           this.record()
         }
       })
     }
   },
-  created: function() {
+  created: function () {
     this.record()
   },
-  watch:{
-    currentpage: function() {
+  watch: {
+    currentpage: function () {
       this.form.page = this.currentpage
-      this.record()  
+      this.record()
     }
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .el-button {
-  	padding: 6px 10px;
+    padding: 6px 10px;
   }
   .record_row {
-  	margin-left: 20px;
+    margin-left: 20px;
   }
   .record_search_button {
-  	margin-top: 23px
+    margin-top: 23px
   }
   .record_head {
-  	background-color: #F0F0F0
+    background-color: #F0F0F0
   }
   .record_table {
-  	margin: 20px 20px 0px 20px  
+   margin: 20px 20px 0px 20px
   }
   .row-bg {
-  	margin-top: 10px;
+    margin-top: 10px;
   }
 </style>

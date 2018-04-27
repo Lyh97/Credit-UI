@@ -8,7 +8,7 @@
     <div class="login">
         <el-dropdown trigger="click" @command="handleCommand" >
           <a href="javascript:void(0)" class="el-dropdown-link aa">
-            <span style="font-size:16px;">你好，{{this.$store.state.user.name}}</span><i class="el-icon-arrow-down el-icon--right"></i>
+            <span style="color:#FFF; font-size:16px;">你好，{{this.$store.state.user.name}}</span><i class="el-icon-arrow-down el-icon--right"></i>
           </a>
           <el-dropdown-menu slot="dropdown" style="margin-top:0;padding-top:0;">
             <el-dropdown-item command="a">退出登录</el-dropdown-item>

@@ -58,8 +58,8 @@
     },
     methods: {
       init() {
-      	var keyid = document.cookie.split(';')
-    	this.axios.post(this.api+'/selectPersonByUserid',{"keyid":keyid[1],"page":this.page}).then((response)=>{
+      var keyid = this.$store.state.user.keyid
+    	this.axios.post(this.api+'/selectPersonByUserid',{"keyid":keyid,"page":this.page}).then((response)=>{
     	  if (response.data.code === 200){
             this.tableData = response.data.actperson
             console.log(this.tableData)

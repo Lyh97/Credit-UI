@@ -1,50 +1,56 @@
 <template>
-  <div id="login">
-    <el-tabs v-model="activeName">
+  <div>
+    <div style="position: absolute; left: 34%; font-family:'STKaiti'; top: 10%;font-size:40px">
+      <span>
+        大学素质拓展学分系统
+      </span>
+    </div>
+    <div id="login">
+      <el-tabs v-model="activeName">
+        <el-tab-pane label="登录" name="first">
+          <el-form label-position="right" label-width="80px" :rules="loginRules" :model="formLabelLogin" ref="formLabelLogin">
+            <el-form-item label="用户名" prop="username">
+              <el-input v-model="formLabelLogin.username" auto-complete="off" spellcheck="false"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" prop="password">
+              <el-input v-model="formLabelLogin.password" type="password" auto-complete="off" spellcheck="false"></el-input>
+            </el-form-item>
+            <el-button class="login_button" type="primary" v-on:click="login">登录</el-button>
+          </el-form>
+        </el-tab-pane>
 
-      <el-tab-pane label="登录" name="first">
-        <el-form label-position="right" label-width="80px" :rules="loginRules" :model="formLabelLogin" ref="formLabelLogin">
-          <el-form-item label="用户名" prop="username">
-            <el-input v-model="formLabelLogin.username" auto-complete="off" spellcheck="false"></el-input>
-          </el-form-item>
-          <el-form-item label="密码" prop="password">
-            <el-input v-model="formLabelLogin.password" type="password" auto-complete="off" spellcheck="false"></el-input>
-          </el-form-item>
-          <el-button class="login_button" type="primary" v-on:click="login">登录</el-button>
-        </el-form>
-      </el-tab-pane>
+        <el-tab-pane label="注册" name="second">
+          <el-form label-position="right" label-width="80px" :rules="registerRules" :model="formLabelRegister" ref="formLabelRegister">
+            <el-form-item label="学号" prop="username">
+              <el-input v-model="formLabelRegister.username" auto-complete="off" spellcheck="false"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" prop="password">
+              <el-input v-model="formLabelRegister.password" type="password" auto-complete="off" spellcheck="false" ></el-input>
+            </el-form-item>
+            <el-form-item class="is-required" label="姓名" prop="name">
+              <el-input v-model="formLabelRegister.name" auto-complete="off" spellcheck="false"></el-input>
+            </el-form-item>
+            <el-form-item label="性别" prop="password">
+              <el-select v-model="formLabelRegister.sex" placeholder="请选择性别">
+                <el-option label="男" value="男"></el-option>
+                <el-option label="女" value="女"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="入学时间">
+              <div class="block">
+                <el-date-picker v-model="formLabelRegister.enrollmentTime" value-format="yyyy-MM-dd" type="date" placeholder="选择日期时间">
+                </el-date-picker>
+              </div>
+            </el-form-item>
+            <el-form-item class="is-required" label="电话" prop="telephone">
+              <el-input v-model="formLabelRegister.telephone" auto-complete="off" spellcheck="false"></el-input>
+            </el-form-item>
+            <el-button class="login_button" type="primary" v-on:click="register">注册</el-button>
+          </el-form>
+        </el-tab-pane>
 
-      <el-tab-pane label="注册" name="second">
-        <el-form label-position="right" label-width="80px" :rules="registerRules" :model="formLabelRegister" ref="formLabelRegister">
-          <el-form-item label="学号" prop="username">
-            <el-input v-model="formLabelRegister.username" auto-complete="off" spellcheck="false"></el-input>
-          </el-form-item>
-          <el-form-item label="密码" prop="password">
-            <el-input v-model="formLabelRegister.password" type="password" auto-complete="off" spellcheck="false" ></el-input>
-          </el-form-item>
-          <el-form-item class="is-required" label="姓名" prop="name">
-            <el-input v-model="formLabelRegister.name" auto-complete="off" spellcheck="false"></el-input>
-          </el-form-item>
-          <el-form-item label="性别" prop="password">
-            <el-select v-model="formLabelRegister.sex" placeholder="请选择性别">
-              <el-option label="男" value="男"></el-option>
-              <el-option label="女" value="女"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="入学时间">
-            <div class="block">
-              <el-date-picker v-model="formLabelRegister.enrollmentTime" value-format="yyyy-MM-dd" type="date" placeholder="选择日期时间">
-              </el-date-picker>
-            </div>
-          </el-form-item>
-          <el-form-item class="is-required" label="电话" prop="telephone">
-            <el-input v-model="formLabelRegister.telephone" auto-complete="off" spellcheck="false"></el-input>
-          </el-form-item>
-          <el-button class="login_button" type="primary" v-on:click="register">注册</el-button>
-        </el-form>
-      </el-tab-pane>
-
-    </el-tabs>
+      </el-tabs>
+    </div>
   </div>
 </template>
 
@@ -69,12 +75,10 @@ export default {
       },
       loginRules: {
         username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' },
-          { min: 8, max: 11, message: '长度在 8～11 个字符', trigger: 'blur' }
+          { required: true, message: '请输入用户名', trigger: 'blur' }
         ],
         password: [
-          { required: true, message: '请输入密码', trigger: 'blur' },
-          { min: 5, max: 8, message: '长度在 5～8 个字符', trigger: 'blur' }
+          { required: true, message: '请输入密码', trigger: 'blur' }
         ]
       },
       registerRules: {
@@ -129,7 +133,6 @@ export default {
           })
           that.user = JSON.parse(http.responseText)
           that.$store.commit('updateLogin', that.user)
-          document.cookie = that.$store.state.user.keyid
           that.$router.push({name: 'homepage'})
         }
       }
@@ -158,8 +161,9 @@ export default {
         this.error('请添加入学时间')
         return
       }
+
       var http = new XMLHttpRequest()
-      http.open('post', this.$store.state.API + 'register' + '?username=' + this.formLabelRegister.username + '&password=' + this.formLabelRegister.password + '&name=' + this.formLabelRegister.name + '&telephone=' + this.formLabelRegister.telephone, true)
+      http.open('post', this.$store.state.API + 'register' + '?username=' + this.formLabelRegister.username + '&password=' + this.formLabelRegister.password + '&name=' + this.formLabelRegister.name + '&telephone=' + this.formLabelRegister.telephone + '&sex=' + this.formLabelRegister.sex + '&enrollmentTime=' + this.formLabelRegister.enrollmentTime, true)
       var that = this
       http.onreadystatechange = function () {
         if (http.status === 302) {
@@ -196,7 +200,7 @@ export default {
         position: absolute;
         left: 35%;
         right: 35%;
-        top: 18%;
+        top: 22%;
         min-width: 320px;
     }
     .el-tabs__nav {

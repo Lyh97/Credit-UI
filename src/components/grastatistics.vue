@@ -14,7 +14,7 @@
     <div style="padding-top:10px"></div>
     <el-row type="flex" justify="center">
       <el-col :span="18">
-      	<el-table :data="tableData" height="700px" border style="width: 100%" header-cell-style='text-align:center' row-style='text-align:center'>
+        <el-table :data="tableData" height="700px" border style="width: 100%" header-cell-style='text-align:center' row-style='text-align:center'>
           <el-table-column fixed type="index" :index="indexMethod">
           </el-table-column>
           <el-table-column prop="name" label="姓名" :span="8">
@@ -25,11 +25,6 @@
           </el-table-column>
         </el-table>
       </el-col>
-    </el-row>
-    <el-row>
-    	<el-col>
-    		
-    	</el-col>
     </el-row>
   </div>
 </template>
@@ -70,10 +65,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .record_head {
-  	background-color: #F0F0F0
+    background-color: #F0F0F0
   }
   .record_row {
-  	margin-left: 20px;
+    margin-left: 20px;
   }
 </style>
 
